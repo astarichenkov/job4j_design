@@ -32,9 +32,7 @@ public class EvenNumbersIterator implements Iterator {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        int el = numbers[position];
-        position++;
-        return el;
+        return numbers[position++];
     }
 
     @Override
