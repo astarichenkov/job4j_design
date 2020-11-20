@@ -16,11 +16,20 @@ public class EchoServer {
                     String str;
                     while (!(str = in.readLine()).isEmpty() && isRun) {
                         System.out.println(str);
-                        if (str.equals("GET /?msg=Bye HTTP/1.1")) {
+                        if (str.contains("msg=Hello")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write("Hello, dear friend.".getBytes());
+                        }
+                        if (str.contains("msg=Exit")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write("Goodbye.".getBytes());
                             isRun = false;
                         }
+                        if (str.contains("msg=What")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write("What?".getBytes());
+                        }
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
                 }
             }
         }
