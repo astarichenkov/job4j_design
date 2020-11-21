@@ -3,6 +3,8 @@ package ru.job4j.it;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
+
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,6 +14,7 @@ public class FlatMapTest {
     public void whenDiffNext() {
         Iterator<Iterator<Integer>> data = List.of(
                 List.of(1).iterator(),
+                Collections.<Integer>emptyIterator(),
                 List.of(2, 3).iterator()
         ).iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
