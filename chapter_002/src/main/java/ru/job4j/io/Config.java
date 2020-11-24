@@ -3,7 +3,6 @@ package ru.job4j.io;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Config {
     private final String path;
@@ -15,15 +14,12 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            List list = read.lines()
+            read.lines()
                     .filter(e -> !e.isEmpty())
                     .filter(e -> !e.contains("//") || !e.contains("/*") || !e.contains("##"))
                     .filter(e -> e.contains("="))
-                    .collect(Collectors.toList());
-            for (Object s : list) {
-                String[] str = s.toString().split("=");
-                values.put(str[0], str[1]);
-            }
+                    .map(e -> e.split("="))
+                    .forEach(e -> values.put(e[0], e[1]));
         } catch (Exception e) {
             e.printStackTrace();
         }
