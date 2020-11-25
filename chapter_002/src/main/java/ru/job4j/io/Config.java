@@ -16,7 +16,6 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
                     .filter(e -> !e.isEmpty())
-                    .filter(e -> !e.contains("//") || !e.contains("/*") || !e.contains("##"))
                     .filter(e -> e.contains("="))
                     .map(e -> e.split("="))
                     .forEach(e -> values.put(e[0], e[1]));
