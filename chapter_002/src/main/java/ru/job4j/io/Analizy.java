@@ -19,20 +19,19 @@ public class Analizy {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         List<String> prevEl = sourceList.get(0);
         List<String> result = new ArrayList<>();
         for (int i = 1; i < sourceList.size(); i++) {
             List targetEl = sourceList.get(i);
             if ((prevEl.get(0).equals("400") || prevEl.get(0).equals("500"))
                     && (targetEl.get(0).equals("200") || targetEl.get(0).equals("300"))) {
-
-                System.out.println(prevEl.get(1) + ";" + targetEl.get(1));
                 result.add(prevEl.get(1) + ";" + targetEl.get(1));
+                prevEl = sourceList.get(i);
             }
-            prevEl = sourceList.get(i);
+            if (prevEl.get(0).equals("200") || prevEl.get(0).equals("300")) {
+                prevEl = sourceList.get(i);
+            }
         }
-
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             result.forEach(out::println);
         } catch (Exception e) {
