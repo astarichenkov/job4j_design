@@ -9,11 +9,13 @@ import java.util.*;
 public class Analizy {
     public void unavailable(String source, String target) {
         List<List<String>> sourceList = new ArrayList<>();
+
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            read.lines()
-                    .filter(e -> !e.isEmpty())
-                    .map(e -> e.split(" "))
-                    .forEach(e -> sourceList.add(Arrays.asList(e)));
+            while (read.ready()) {
+                String s = read.readLine();
+                String[] strings = s.split(" ");
+                sourceList.add(Arrays.asList(strings));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -27,11 +29,8 @@ public class Analizy {
 
                 System.out.println(prevEl.get(1) + ";" + targetEl.get(1));
                 result.add(prevEl.get(1) + ";" + targetEl.get(1));
-                prevEl = sourceList.get(i);
             }
-            if (prevEl.get(0).equals("200") || prevEl.get(0).equals("300")) {
-                prevEl = sourceList.get(i);
-            }
+            prevEl = sourceList.get(i);
         }
 
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
@@ -42,13 +41,7 @@ public class Analizy {
     }
 
     public static void main(String[] args) {
-        try (PrintWriter out = new PrintWriter(new FileOutputStream("unavailable.csv"))) {
-            out.println("15:01:30;15:02:32");
-            out.println("15:10:30;23:12:32");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Analizy analizy = new Analizy();
-        analizy.unavailable("server.log", "target.csv");
+        analizy.unavailable("./test_files/server.log", "./test_files/target.csv");
     }
 }
