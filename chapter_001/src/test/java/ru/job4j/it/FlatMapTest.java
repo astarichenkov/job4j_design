@@ -15,6 +15,7 @@ public class FlatMapTest {
         Iterator<Iterator<Integer>> data = List.of(
                 List.of(1).iterator(),
                 Collections.<Integer>emptyIterator(),
+                Collections.<Integer>emptyIterator(),
                 List.of(2, 3).iterator()
         ).iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
