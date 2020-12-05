@@ -1,0 +1,14 @@
+create database employees;
+
+create table persons (
+    id serial primary key,
+    lastname varchar(255),
+    age int,
+    birthday date
+);
+
+insert into persons(lastname, age, birthday) values ('ivanov', 32, '1988-05-25');
+
+update persons set age = 33;
+
+delete from persons;
