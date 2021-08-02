@@ -6,7 +6,7 @@ create table product
     id           serial primary key,
     name         varchar(255),
     type_id      int,
-    expired_date boolean,
+    expired_date date,
     price        float
 );
 
@@ -17,22 +17,22 @@ create table type
 );
 
 insert into product(name, type_id, expired_date, price)
-values ('сыр Гауда', '1', false, '300');
+values ('сыр Гауда', '1', '2021-08-15', '300');
 
 insert into product(name, type_id, expired_date, price)
-values ('сыр Плавленный', '1', false, '30');
+values ('сыр Плавленный', '1', '2021-09-20', '30');
 
 insert into product(name, type_id, expired_date, price)
-values ('сыр Ламбер', '1', false, '450');
+values ('сыр Ламбер', '1', '2021-08-16', '450');
 
 insert into product(name, type_id, expired_date, price)
-values ('мороженое Пломбир', '2', false, '30');
+values ('мороженое Пломбир', '2', '2021-10-01', '30');
 
 insert into product(name, type_id, expired_date, price)
-values ('мороженое Эскимо', '2', false, '50');
+values ('мороженое Эскимо', '2', '2021-09-25', '50');
 
 insert into product(name, type_id, expired_date, price)
-values ('молоко Княгининское 3.2%', '3', true, '45');
+values ('молоко Княгининское 3.2%', '3', '2021-07-30', '45');
 
 
 insert into type(name)
@@ -57,7 +57,7 @@ where p.name like '%мороженое%';
 --3. Написать запрос, который выводит все продукты, срок годности которых уже истек
 select *
 from product as p
-where p.expired_date = true;
+where p.expired_date < '2021-08-02';
 
 --4. Написать запрос, который выводит самый дорогой продукт.
 select *
