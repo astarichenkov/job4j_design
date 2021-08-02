@@ -20,6 +20,8 @@ insert into departments(name)
 values ('Выдача');
 insert into departments(name)
 values ('Администрация');
+insert into departments(name)
+values ('Клининг');
 
 insert into employees(name, departments_id)
 values ('Вася', 1);
@@ -55,10 +57,10 @@ from employees
          cross join departments d;
 
 --3. Используя left join найти департаменты, у которых нет работников
-select *
-from employees e
-         left join departments d on d.id = e.departments_id
-where d.id is null;
+select d.name
+from departments d
+         left join employees e on d.id = e.departments_id
+where e.departments_id is null;
 
 --4. Используя left и right join написать запросы, которые давали бы одинаковый результат.
 select *
