@@ -57,7 +57,7 @@ where p.name like '%мороженое%';
 --3. Написать запрос, который выводит все продукты, срок годности которых уже истек
 select *
 from product as p
-where p.expired_date < '2021-08-02';
+where p.expired_date < current_date;
 
 --4. Написать запрос, который выводит самый дорогой продукт.
 select *
