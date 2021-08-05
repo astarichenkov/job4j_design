@@ -32,10 +32,9 @@ public class TableEditor implements AutoCloseable {
 
     public void createTable(String tableName) {
         String queryStr = String.format(
-                "create table if not exists %s(%s, %s);",
+                "create table if not exists %s(%s);",
                 tableName,
-                "id serial primary key",
-                "name varchar(255)"
+                "id serial primary key"
         );
         executeQuery(queryStr);
     }
@@ -105,23 +104,5 @@ public class TableEditor implements AutoCloseable {
         if (connection != null) {
             connection.close();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream("app.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String demoTable = "demo_table";
-        TableEditor tableEditor = new TableEditor(properties);
-        tableEditor.dropTable(demoTable);
-        tableEditor.createTable(demoTable);
-        tableEditor.addColumn(demoTable, "role", "varchar(255)");
-        tableEditor.dropColumn(demoTable, "name");
-        tableEditor.renameColumn(demoTable, "role", "access_level");
-        System.out.println(getTableScheme(tableEditor.connection, demoTable));
-
     }
 }
