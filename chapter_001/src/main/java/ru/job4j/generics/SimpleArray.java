@@ -24,12 +24,14 @@ public class SimpleArray<T> implements Iterable<T> {
         @Override
         @SuppressWarnings("unchecked")
         public T next() {
-            if (hasNext()) {
-                T value = (T) elements[counter];
-                counter++;
-                return value;
-            } else throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T value = (T) elements[counter];
+            counter++;
+            return value;
         }
+
     }
 
     public void add(T model) {
