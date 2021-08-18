@@ -9,21 +9,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
-    private final Map<FileProperty, ArrayList<String>> allMap = new HashMap<>();
-    private final Map<FileProperty, ArrayList<String>> duplicateMap = new HashMap<>();
+    private final Map<FileProperty, List<String>> allMap = new HashMap<>();
 
     @Override
     public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
         File file = path.toFile();
         FileProperty fileProperty = new FileProperty(file.getTotalSpace(), file.getName());
         if (allMap.containsKey(fileProperty)) {
-            ArrayList<String> list = allMap.get(fileProperty);
+            List<String> list = allMap.get(fileProperty);
             list.add(file.getAbsolutePath());
-            if (!duplicateMap.containsKey(fileProperty)) {
-                duplicateMap.put(fileProperty, list);
-            } else {
-                duplicateMap.replace(fileProperty, list);
-            }
             allMap.replace(fileProperty, list);
         } else {
             allMap.put(fileProperty, new ArrayList<>(List.of(file.getAbsolutePath())));
@@ -31,7 +25,13 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         return FileVisitResult.CONTINUE;
     }
 
-    public Map<FileProperty, ArrayList<String>> getAllMap() {
-        return duplicateMap;
+    public void printDuplicates() {
+        for (Map.Entry<FileProperty, List<String>> entry : allMap.entrySet()) {
+            List<String> list = entry.getValue();
+            if (list.size() > 1) {
+                list.forEach(System.out::println);
+                System.out.println();
+            }
+        }
     }
 }
