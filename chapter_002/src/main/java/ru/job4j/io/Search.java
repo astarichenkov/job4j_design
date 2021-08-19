@@ -9,8 +9,19 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get("c:\\projects");
-        search(start, p -> p.toFile().getName().endsWith("js")).forEach(System.out::println);
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar Search.jar ROOT_FOLDER EXTENSION.");
+        }
+        String path = args[0];
+        String ext = args[1];
+        if (!path.matches("[a-zA-Z]:\\\\(?:[^\\\\/:*?\"<>|\\r\\n]+\\\\)*[^\\\\/:*?\"<>|\\r\\n]*")) {
+            throw new IllegalArgumentException("Invalid path. Usage java -jar Search.jar ROOT_FOLDER EXTENSION.");
+        }
+        if (!ext.matches("\\w+")) {
+            throw new IllegalArgumentException("Invalid file extension. Usage java -jar Search.jar ROOT_FOLDER EXTENSION.");
+        }
+        Path start = Paths.get(path);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) {
