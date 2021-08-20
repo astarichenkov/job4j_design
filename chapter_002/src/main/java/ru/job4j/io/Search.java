@@ -9,8 +9,8 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage java -jar Search.jar ROOT_FOLDER EXTENSION.");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("There are not enough arguments to start the program. Usage java -jar Search.jar ROOT_FOLDER EXTENSION.");
         }
         String path = args[0];
         String ext = args[1];
