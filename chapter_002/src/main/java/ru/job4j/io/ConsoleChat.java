@@ -25,26 +25,23 @@ public class ConsoleChat {
         Scanner in = new Scanner(System.in);
         String s;
         boolean isRun = true;
-        int index;
         System.out.print("Введите команду: ");
-        while (!(s = in.nextLine()).equals(OUT)) {
-            if (s.equals(CONTINUE)) {
+        while (!OUT.equals(s = in.nextLine())) {
+            if (CONTINUE.equals(s)) {
                 isRun = true;
-                index = (int) (Math.random() * (answers.size() - 1));
-                String ans = answers.get(index);
+                String ans = getRandomString(answers);
                 System.out.println(ans);
                 log.add(s);
                 log.add(ans);
                 continue;
             }
-            if (s.equals(STOP)) {
+            if (STOP.equals(s)) {
                 isRun = false;
                 log.add(s);
                 continue;
             }
             if (isRun) {
-                index = (int) (Math.random() * (answers.size() - 1));
-                String ans = answers.get(index);
+                String ans = getRandomString(answers);
                 System.out.println(ans);
                 log.add(s);
                 log.add(ans);
@@ -52,6 +49,10 @@ public class ConsoleChat {
         }
         log.add(s);
         saveLog(log);
+    }
+
+    private String getRandomString(List<String> answers) {
+        return answers.get((int) (Math.random() * (answers.size() - 1)));
     }
 
     private List<String> readPhrases() {
