@@ -43,6 +43,26 @@ public class Car {
                 '}';
     }
 
+    public String getModel() {
+        return model;
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public String[] getEquipment() {
+        return equipment;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+
+    public boolean isRequiresRepair() {
+        return requiresRepair;
+    }
+
     public static void main(String[] args) {
         Car vesta = new Car("Vesta", new Engine("21179", 1.8, 122),
                 new String[]{"Conditioner", "ABS", "ESP"}, 154000, false);

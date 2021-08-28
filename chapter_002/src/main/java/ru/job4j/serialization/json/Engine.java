@@ -29,4 +29,16 @@ public class Engine {
                 ", power=" + power +
                 '}';
     }
+
+    public String getModel() {
+        return model;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public int getPower() {
+        return power;
+    }
 }
