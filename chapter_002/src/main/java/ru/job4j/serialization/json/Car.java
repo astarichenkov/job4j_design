@@ -3,14 +3,26 @@ package ru.job4j.serialization.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "car")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Car {
-    private final String model;
-    private final Engine engine;
-    private final String[] equipment;
-    private final int mileage;
-    private final boolean requiresRepair;
+    @XmlAttribute
+    private String model;
+    @XmlElement
+    private Engine engine;
+    @XmlElementWrapper(name = "equipments")
+    @XmlElement(name = "equipment")
+    private String[] equipment;
+    @XmlAttribute
+    private int mileage;
+    @XmlAttribute
+    private boolean requiresRepair;
+
+    public Car() {
+    }
 
     public Car(String model, Engine engine, String[] equipment, int mileage, boolean requiresRepair) {
         this.model = model;

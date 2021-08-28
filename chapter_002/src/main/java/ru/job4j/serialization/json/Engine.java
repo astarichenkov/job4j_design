@@ -1,12 +1,22 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "engine")
 public class Engine {
-    private final String Model;
-    private final double volume;
-    private final int power;
+    @XmlAttribute
+    private String model;
+    @XmlAttribute
+    private double volume;
+    @XmlAttribute
+    private int power;
+
+    public Engine() {
+    }
 
     public Engine(String model, double volume, int power) {
-        Model = model;
+        this.model = model;
         this.volume = volume;
         this.power = power;
     }
@@ -14,7 +24,7 @@ public class Engine {
     @Override
     public String toString() {
         return "Engine{" +
-                "Model='" + Model + '\'' +
+                "model='" + model + '\'' +
                 ", volume=" + volume +
                 ", power=" + power +
                 '}';
