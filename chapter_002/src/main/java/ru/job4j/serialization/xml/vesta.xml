@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 <car model="Vesta" mileage="154000" requiresRepair="false">
-    <engine>model = "21179" volume = "1.8" power = "122"</engine>
+    <engine model = "21179" volume = "1.8" power = "122" />
     <equipments>
         <equipment>Conditioner</equipment>
         <equipment>ABS</equipment>
