@@ -1,22 +1,20 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class CSVReader {
-    private static Path path;
-    private static String delimiter;
-    private static String out;
-    private static String[] filter;
-    private static List<String> headers = new ArrayList<>();
-    private static final List<Map<String, String>> scannedList = new ArrayList<>();
-    private static final String fileRegex = ".*\\.+.*";
+    private Path path;
+    private String delimiter;
+    private String out;
+    private String[] filter;
+    private List<String> headers = new ArrayList<>();
+    private final List<Map<String, String>> scannedList = new ArrayList<>();
+    private final String fileRegex = ".*\\.+.*";
 
-    private static void checkArgs(String[] args) {
+    private void checkArgs(String[] args) {
         ArgsName argsName = new ArgsName();
         argsName.parse(args);
         if (args.length != 4) {
@@ -43,7 +41,7 @@ public class CSVReader {
         }
     }
 
-    private static void scanData() throws IOException {
+    private void scanData() throws IOException {
         var scanner = new Scanner(path).useDelimiter(delimiter + "|\\r\\n");
         if (scanner.hasNext()) {
             headers = List.of(scanner.nextLine().split(delimiter));
@@ -59,21 +57,21 @@ public class CSVReader {
         }
     }
 
-    private static void stdOut() {
+    private void stdOut() {
         for (Map<String, String> m : scannedList) {
-            for (int i = 0; i < filter.length; i++) {
-                System.out.print(m.get(filter[i]) + " ");
+            for (String s : filter) {
+                System.out.print(m.get(s) + " ");
             }
             System.out.println();
         }
     }
 
-    private static void outToFile() {
+    private void outToFile() {
         try (FileOutputStream fos = new FileOutputStream(out)) {
             StringBuilder s = new StringBuilder();
             for (Map<String, String> m : scannedList) {
-                for (int i = 0; i < filter.length; i++) {
-                    s.append(m.get(filter[i])).append(" ");
+                for (String value : filter) {
+                    s.append(m.get(value)).append(" ");
                 }
                 s.append(System.lineSeparator());
                 fos.write(s.toString().getBytes());
@@ -84,7 +82,7 @@ public class CSVReader {
         }
     }
 
-    private static void outputData() {
+    private void outputData() {
         if (out.equals("stdout")) {
             stdOut();
         } else {
@@ -92,9 +90,14 @@ public class CSVReader {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public void read(String[] args) throws IOException {
         checkArgs(args);
         scanData();
         outputData();
+    }
+
+    public static void main(String[] args) throws IOException {
+        CSVReader csvReader = new CSVReader();
+        csvReader.read(args);
     }
 }
