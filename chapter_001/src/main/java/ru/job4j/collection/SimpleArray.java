@@ -1,4 +1,4 @@
-package ru.job4j.generics;
+package ru.job4j.collection;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -8,6 +8,10 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     private final Object[] elements;
     private int size;
+
+    public SimpleArray() {
+        elements = new Object[16];
+    }
 
     public SimpleArray(int elements) {
         this.elements = new Object[elements];
