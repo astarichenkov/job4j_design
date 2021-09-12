@@ -19,8 +19,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @SuppressWarnings({"unchecked"})
     public SimpleMap(int capacity) {
-        this.table = new MapEntry[capacity << 1];
-        this.capacity = capacity << 1;
+        this.table = new MapEntry[capacity];
+        this.capacity = capacity;
     }
 
     @Override
@@ -51,14 +51,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private void expand() {
-        SimpleMap<K, V> newMap = new SimpleMap<>(table.length << 1);
+        SimpleMap<K, V> newMap = new SimpleMap<>(table.length * 2);
         Iterator<K> it = iterator();
         while (it.hasNext()) {
             K key = it.next();
             newMap.put(key, get(key));
         }
         table = newMap.table;
-        capacity = capacity << 1;
+        capacity = capacity * 2;
     }
 
     @Override
