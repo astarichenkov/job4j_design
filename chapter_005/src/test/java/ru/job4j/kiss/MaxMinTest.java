@@ -9,47 +9,62 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MaxMinTest {
-    List<Integer> list;
+    List<Integer> integerList;
+    List<String> stringList;
+    MaxMin maxMin;
+    Comparator<String> stringComparator;
+    Comparator<Integer> integerComparator;
 
     @Before
     public void initData() {
-        list = new ArrayList<>();
-        list.add(1);
-        list.add(3);
-        list.add(2);
-        list.add(7);
-        list.add(5);
-    }
+        maxMin = new MaxMin();
 
-    @Test
-    public void WhenMaxElementInteger() {
-        MaxMin maxMin = new MaxMin();
-        Comparator comparator = new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return (Integer) o1 - (Integer) o2;
-            }
-        };
-        int rsl = maxMin.max(list, comparator);
-        Assert.assertEquals(rsl, 7);
-    }
+        integerList = new ArrayList<>();
+        integerList.add(1);
+        integerList.add(7);
+        integerList.add(5);
 
-    @Test
-    public void WhenMaxStringLength() {
-        List<String> list = new ArrayList<>();
-        list.add("str");
-        list.add("length");
-        list.add("size");
-        MaxMin maxMin = new MaxMin();
-        Comparator comparator = new Comparator() {
+        stringList = new ArrayList<>();
+        stringList.add("str");
+        stringList.add("length");
+        stringList.add("size");
+
+        stringComparator = new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 return o1.toString().length() - o2.toString().length();
             }
         };
-        String rsl = maxMin.max(list, comparator);
+
+        integerComparator = new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return (Integer) o1 - (Integer) o2;
+            }
+        };
+    }
+
+    @Test
+    public void WhenMaxElementInteger() {
+        int rsl = maxMin.max(integerList, integerComparator);
+        Assert.assertEquals(rsl, 7);
+    }
+
+    @Test
+    public void WhenMaxStringLength() {
+        String rsl = maxMin.max(stringList, stringComparator);
         Assert.assertEquals(rsl, "length");
     }
 
+     @Test
+    public void WhenMinElementInteger() {
+        int rsl = maxMin.min(integerList, integerComparator);
+        Assert.assertEquals(rsl, 1);
+    }
 
+    @Test
+    public void WhenMinStringLength() {
+        String rsl = maxMin.min(stringList, stringComparator);
+        Assert.assertEquals(rsl, "str");
+    }
 }
